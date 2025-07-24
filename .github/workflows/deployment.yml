@@ -22,7 +22,8 @@ jobs:
         run: npm test
   deploy:
     runs-on: ubuntu-latest
-    # needs: test
+    # This job will run only if the previous job (test) was successful
+    needs: test 
     steps:
       - name: Get code
         uses: actions/checkout@v4
