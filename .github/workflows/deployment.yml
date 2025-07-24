@@ -1,6 +1,6 @@
 # Events Github Actions will respond to
 #  https://docs.github.com/en/actions/reference/events-that-trigger-workflows#push
-name: Test Workflow
+name: Deploy Project
 on: push
 
 jobs: 
@@ -20,6 +20,26 @@ jobs:
         run: npm ci            # para entornos CI, recomendado en tu workflow
       - name: Run tests
         run: npm test
-          
+  deploy:
+    runs-on: ubuntu-latest
+    # needs: test
+    steps:
+      - name: Get code
+        uses: actions/checkout@v4
+      - name: Install NodeJS
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      - name: Install dependencies
+        # run: npm install     # para desarrollo/local
+        run: npm ci            # para entornos CI, recomendado en tu workflow          
+      - name: Build Project
+        run: npm run build
+      - name: Deploy
+        run: |
+          echo "Deploying the project..."
+          echo "deployyyyyyy"
+        
+
           
     
