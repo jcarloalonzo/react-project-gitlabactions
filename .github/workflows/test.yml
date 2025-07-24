@@ -1,0 +1,25 @@
+# Events Github Actions will respond to
+#  https://docs.github.com/en/actions/reference/events-that-trigger-workflows#push
+name: Test Workflow
+on: push
+
+jobs: 
+  test:
+    runs-on: ubuntu-latest
+    steps:
+          # we need to get the code from the repository
+      # https://github.com/marketplace/actions/checkout
+      - name: Get code
+        uses: actions/checkout@v4
+      - name: Install NodeJS
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      - name: Install dependencies
+        # run: npm install     # para desarrollo/local
+        run: npm ci            # para entornos CI, recomendado en tu workflow
+      - name: Run tests
+        run: npm test
+          
+          
+    
